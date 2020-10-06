@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="2.5dp"
+        app:cardCornerRadius="10dp">
+
+        <LinearLayout
+            android:id="@+id/builderBasesFullViewLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="10">
+
+            <ImageView
+                android:id="@+id/builderBasesImage"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="8"
+                android:scaleType="fitXY"
+                android:src="@drawable/loading" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3.3">
+
+                    <ImageView
+                        android:id="@+id/builderFavoriteImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="9dp"
+                        android:src="@drawable/ic_favorite" />
+
+                    <ImageView
+                        android:id="@+id/builderUnFavoriteImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_un_add_favorite"
+                        android:visibility="invisible" />
+                </FrameLayout>
+
+                <ImageView
+                    android:id="@+id/builderCopyBase"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:layout_weight="3.3"
+                    android:src="@drawable/ic_download" />
+
+                <ImageView
+                    android:id="@+id/builderShareBase"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:padding="6dp"
+                    android:layout_weight="3.3"
+                    android:src="@drawable/ic_share" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
