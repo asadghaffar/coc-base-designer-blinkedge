@@ -119,13 +119,11 @@ public class HybridFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "Check Your Internet Connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Server Error in Hybrid", Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override

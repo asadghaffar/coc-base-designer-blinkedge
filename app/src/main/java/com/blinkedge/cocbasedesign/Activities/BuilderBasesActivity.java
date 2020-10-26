@@ -34,7 +34,6 @@ import java.util.Map;
 public class BuilderBasesActivity extends AppCompatActivity {
 
     private ImageView backImage;
-    private LinearLayout BuilderBasesNoImage;
     private ShimmerRecyclerView builderAllBasesRecycler;
     private List<Modal> builderBasesmodalList = new ArrayList<>();
     private StringRequest stringRequest;
@@ -50,7 +49,6 @@ public class BuilderBasesActivity extends AppCompatActivity {
         onClick();
         getData();
         jsonResponse();
-
 
     }
 
@@ -70,18 +68,12 @@ public class BuilderBasesActivity extends AppCompatActivity {
         stringRequest = new StringRequest(Request.Method.POST, API.VILLAGE_BASES_API, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
-
                 try {
                     Log.d("builderBases_", response);
                     JSONObject jsonObject = new JSONObject(response);
                     boolean status = jsonObject.getBoolean("status");
                     Log.d("statuts_", String.valueOf(status));
                     if (status) {
-
-                        builderAllBasesRecycler.setVisibility(View.VISIBLE);
-                        BuilderBasesNoImage.setVisibility(View.INVISIBLE);
-
                         JSONArray jsonArray = jsonObject.getJSONArray("data");
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject fetchBuilderBases = jsonArray.getJSONObject(i);
@@ -103,25 +95,15 @@ public class BuilderBasesActivity extends AppCompatActivity {
 
                         setUpRecycler(builderBasesmodalList);
 
-
-                    } else {
-                        if (!status) {
-                            builderAllBasesRecycler.setVisibility(View.INVISIBLE);
-                            BuilderBasesNoImage.setVisibility(View.VISIBLE);
-                        }
                     }
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(BuilderBasesActivity.this, "Check Your Internet Connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BuilderBasesActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
@@ -160,7 +142,6 @@ public class BuilderBasesActivity extends AppCompatActivity {
     }
 
     private void id() {
-        BuilderBasesNoImage = findViewById(R.id.builderBasesNoImage);
         backImage = findViewById(R.id.backImage);
         builderAllBasesRecycler = findViewById(R.id.builderAllBasesRecycler);
     }

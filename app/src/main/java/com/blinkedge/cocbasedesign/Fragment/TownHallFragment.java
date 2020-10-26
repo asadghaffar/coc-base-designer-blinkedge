@@ -1,5 +1,7 @@
 package com.blinkedge.cocbasedesign.Fragment;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -19,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.blinkedge.cocbasedesign.API.API;
+import com.blinkedge.cocbasedesign.Activities.HomeVillageBasesActivity;
 import com.blinkedge.cocbasedesign.Modal.Modal;
 import com.blinkedge.cocbasedesign.R;
 import com.blinkedge.cocbasedesign.RecyclerViewAdapter.VillageHallRecyclerView;
@@ -40,7 +44,7 @@ public class TownHallFragment extends Fragment {
     public ShimmerRecyclerView hallRecyclerView;
     public StringRequest stringRequest;
     public View view;
-    private LinearLayout townHallNoImage;
+    private ImageView th13;
     public List<Modal> dataFetchModal = new ArrayList<>();
 
     @Override
@@ -51,8 +55,19 @@ public class TownHallFragment extends Fragment {
 
         id();
         jsonResponse();
+        onClick();
 
         return view;
+    }
+
+    private void onClick() {
+        th13.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), HomeVillageBasesActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -60,17 +75,12 @@ public class TownHallFragment extends Fragment {
         stringRequest = new StringRequest(Request.Method.POST, API.VILLAGE_HALL_API, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
                 try {
                     Log.d("village_response_", response);
                     JSONObject jsonObject = new JSONObject(response);
                     // Fetching Status
                     boolean status = jsonObject.getBoolean("status");
                     if (status) {
-
-                        hallRecyclerView.setVisibility(View.VISIBLE);
-                        townHallNoImage.setVisibility(View.INVISIBLE);
-
                         JSONArray jsonArray = jsonObject.getJSONArray("data");
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonFetchTownHallImages = jsonArray.getJSONObject(i);
@@ -79,7 +89,7 @@ public class TownHallFragment extends Fragment {
 
                             int villageHomeID = jsonFetchTownHallImages.getInt("catHome_id");
                             String villageTownHallIMage = jsonFetchTownHallImages.getString("home_image");
-                            Log.d("image_", villageHomeID+"api");
+                            Log.d("image_", villageHomeID + "api");
                             String villageTownHallNumber = jsonFetchTownHallImages.getString("home_description");
 
                             Modal modal = new Modal();
@@ -93,22 +103,14 @@ public class TownHallFragment extends Fragment {
                         setUpRecyclerView(dataFetchModal);
 
                     }
-                    else{
-                        hallRecyclerView.setVisibility(View.INVISIBLE);
-                        townHallNoImage.setVisibility(View.VISIBLE);
-                    }
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "Check Your Internet Connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Server Error", Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
@@ -131,7 +133,7 @@ public class TownHallFragment extends Fragment {
     }
 
     private void id() {
-        townHallNoImage = view.findViewById(R.id.townHallNoImage);
+        th13 = view.findViewById(R.id.th13);
         hallRecyclerView = view.findViewById(R.id.hallRecyclerView);
     }
 

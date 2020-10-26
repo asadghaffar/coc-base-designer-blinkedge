@@ -40,7 +40,6 @@ public class BuilderHallFragment extends Fragment {
     private ShimmerRecyclerView recyclerView;
     private List<Modal> builderHallDataFetchModal = new ArrayList<>();
     public StringRequest stringRequestBuilder;
-    private LinearLayout builderHallNoImage;
     int catHome_id;
 
     @Override
@@ -64,10 +63,6 @@ public class BuilderHallFragment extends Fragment {
                     JSONObject jsonObject = new JSONObject(response);
                     boolean status = jsonObject.getBoolean("status");
                     if (status) {
-
-                        recyclerView.setVisibility(View.VISIBLE);
-                        builderHallNoImage.setVisibility(View.INVISIBLE);
-
                         JSONArray jsonArray = jsonObject.getJSONArray("data");
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonFetchBuilderBaseData = jsonArray.getJSONObject(i);
@@ -87,14 +82,7 @@ public class BuilderHallFragment extends Fragment {
 
                         setUpRecyclerView(builderHallDataFetchModal);
 
-                    } else {
-                        if (!status) {
-                            recyclerView.setVisibility(View.INVISIBLE);
-                            builderHallNoImage.setVisibility(View.VISIBLE);
-                        }
                     }
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -103,7 +91,7 @@ public class BuilderHallFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "Check Your Internet Connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Server Error", Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
@@ -133,8 +121,6 @@ public class BuilderHallFragment extends Fragment {
     }
 
     private void id() {
-
-        builderHallNoImage = view.findViewById(R.id.farmingNoImage);
         recyclerView = view.findViewById(R.id.builderHallRecyclerView);
     }
 }

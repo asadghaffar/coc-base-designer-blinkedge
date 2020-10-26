@@ -1,46 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".VillageBaseLayoutFragment.WarFragment">
 
-    <com.cooltechworks.views.shimmer.ShimmerRecyclerView
-        android:id="@+id/warRecycler"
-        android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_height="match_parent"
-        app:shimmer_demo_child_count="10"
-        app:shimmer_demo_grid_child_count="1"
-        app:shimmer_demo_layout="@layout/layout_demo_grid"
-        app:shimmer_demo_layout_manager_type="grid"
-        app:shimmer_demo_angle="20" />
-
     <LinearLayout
-        android:visibility="invisible"
-        android:id="@+id/warNoImage"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:weightSum="10"
-        android:layout_height="match_parent">
+        android:weightSum="10">
 
-        <ImageView
-            android:layout_marginTop="30dp"
+        <androidx.cardview.widget.CardView
+            android:layout_weight="4"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="5"
-            android:src="@drawable/ic_no_image"/>
+            android:layout_margin="2.5dp"
+            app:cardCornerRadius="10dp">
 
-        <TextView
+            <LinearLayout
+                android:id="@+id/fullViewLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <ImageView
+                    android:id="@+id/warBaseImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="7.8"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/war" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2.2"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="5">
+
+                        <ImageView
+                            android:id="@+id/warFavoriteImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="5dp"
+                            android:src="@drawable/ic_un_add_favorite" />
+                    </FrameLayout>
+
+                    <ImageView
+                        android:id="@+id/copyWarBase"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="5"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_download" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+            android:id="@+id/warRecycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:textSize="17sp"
-            android:paddingLeft="130dp"
-            android:text="No Image Avaliable"
-            android:layout_weight="5"/>
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="7"
+            app:shimmer_demo_angle="20"
+            app:shimmer_demo_child_count="10"
+            app:shimmer_demo_grid_child_count="1"
+            app:shimmer_demo_layout="@layout/layout_demo_grid"
+            app:shimmer_demo_layout_manager_type="grid" />
 
     </LinearLayout>
 

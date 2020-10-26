@@ -120,8 +120,7 @@ public class FarmingFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "Check Your Internet Connection", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(getContext(), "Server error in farming", Toast.LENGTH_SHORT).show();
             }
         }){
             @Override

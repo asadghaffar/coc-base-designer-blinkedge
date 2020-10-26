@@ -7,43 +7,33 @@
     android:orientation="vertical"
     tools:context=".Fragment.TownHallFragment">
 
-    <com.cooltechworks.views.shimmer.ShimmerRecyclerView
-        android:id="@+id/hallRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
-        app:shimmer_demo_angle="20"
-        app:shimmer_demo_child_count="10"
-        app:shimmer_demo_grid_child_count="2"
-        app:shimmer_demo_layout="@layout/layout_demo_grid"
-        app:shimmer_demo_layout_manager_type="grid" />
-
     <LinearLayout
-        android:visibility="invisible"
-        android:id="@+id/townHallNoImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum="10">
 
         <ImageView
+            android:id="@+id/th13"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="30dp"
-            android:layout_weight="5"
-            android:paddingTop="10dp"
-            android:src="@drawable/ic_no_image" />
+            android:layout_margin="10dp"
+            android:layout_weight="3"
+            android:src="@drawable/town" />
 
-        <TextView
+        <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+            android:id="@+id/hallRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="5"
-            android:paddingLeft="130dp"
-            android:text="No Image Avaliable"
-            android:textSize="17sp" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="7"
+            app:shimmer_demo_angle="20"
+            app:shimmer_demo_child_count="10"
+            app:shimmer_demo_grid_child_count="2"
+            app:shimmer_demo_layout="@layout/layout_demo_grid"
+            app:shimmer_demo_layout_manager_type="grid" />
 
     </LinearLayout>
-
 </FrameLayout>

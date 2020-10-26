@@ -1,5 +1,8 @@
 package com.blinkedge.cocbasedesign.VillageBaseLayoutFragment;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -37,8 +41,9 @@ import java.util.Map;
 
 public class WarFragment extends Fragment {
 
-    private LinearLayout warNoImage;
     private View view;
+    private ImageView fvrtBase;
+    private ImageView linkBase;
     private ShimmerRecyclerView warRecycler;
     private List<Modal> fetchAllBasesModal = new ArrayList<>();
     private StringRequest stringRequest;
@@ -52,9 +57,29 @@ public class WarFragment extends Fragment {
         id();
         getData();
         jsonResponse();
+        onClick();
 
 
         return view;
+    }
+
+    private void onClick() {
+        fvrtBase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Added to favort", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        linkBase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://link.clashofclans.com/en?action=OpenLayout&id=TH12%3AWB%3AAAAAMAAAAAGM3GAShmuShcHGigknb71S";
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+            }
+        });
     }
 
     private void getData() {
@@ -80,9 +105,6 @@ public class WarFragment extends Fragment {
                     boolean status = jsonObject.getBoolean("status");
                     if (status) {
 
-                        warRecycler.setVisibility(View.VISIBLE);
-                        warNoImage.setVisibility(View.INVISIBLE);
-
                         JSONArray jsonArray = jsonObject.getJSONArray("data");
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject fetchWarBaseImage = jsonArray.getJSONObject(i);
@@ -106,24 +128,16 @@ public class WarFragment extends Fragment {
 
                         setUpRecyclerViewVillageBases(fetchAllBasesModal);
 
-                    } else {
-                        if (!status) {
-                            warRecycler.setVisibility(View.INVISIBLE);
-                            warNoImage.setVisibility(View.VISIBLE);
-                        }
                     }
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "Check Your Internet Connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Server error in war", Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
@@ -153,7 +167,9 @@ public class WarFragment extends Fragment {
     }
 
     private void id() {
-        warNoImage = view.findViewById(R.id.warNoImage);
+        Context context;
+        fvrtBase = view.findViewById(R.id.warFavoriteImage);
+        linkBase = view.findViewById(R.id.copyWarBase);
         warRecycler = view.findViewById(R.id.warRecycler);
     }
 }

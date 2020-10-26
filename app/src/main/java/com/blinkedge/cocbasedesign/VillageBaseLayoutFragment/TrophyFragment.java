@@ -119,7 +119,7 @@ public class TrophyFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "Error to fetching images", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Server Error in trophy", Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
